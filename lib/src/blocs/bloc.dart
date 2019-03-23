@@ -10,6 +10,6 @@ class Bloc with Validators {
   Function(String) get changePassword => _password.sink.add;
 
   //Getters for Retrieving data from stream
-  Stream<String> get email => _email.stream;
-  Stream<String> get password => _password.stream;
+  Stream<String> get email => _email.stream.transform(validateEmail);
+  Stream<String> get password => _password.stream.transform(validatePassword);
 }
