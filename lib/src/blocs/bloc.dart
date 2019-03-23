@@ -9,7 +9,14 @@ class Bloc with Validators {
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changePassword => _password.sink.add;
 
-  //Getters for Retrieving data from stream
+  //Getters for Retrieving data from stream with a transform to select
+  // which data gets retrieved.
   Stream<String> get email => _email.stream.transform(validateEmail);
   Stream<String> get password => _password.stream.transform(validatePassword);
+
+  //clean up variables or objects created by class -- essentially a destructor
+  dispose() {
+    _email.close();
+    _password.close();
+  }
 }
