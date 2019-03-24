@@ -38,6 +38,3 @@ class Bloc with Validators {
     _password.close();
   }
 }
-
-// Global instance of Bloc class
-final bloc = Bloc();
