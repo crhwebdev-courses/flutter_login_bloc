@@ -4,6 +4,8 @@ import 'bloc.dart';
 class Provider extends InheritedWidget {
   final Bloc bloc = Bloc();
 
+  Provider({Key key, Widget child}) : super(key: key, child: child);
+
   bool updateShouldNotify(_) => true;
 
   //context object carries the information about the widget and all enclosing widgets
