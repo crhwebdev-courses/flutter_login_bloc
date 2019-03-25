@@ -21,8 +21,8 @@ import 'validators.dart';
 import 'package:rxdart/rxdart.dart';
 
 class Bloc with Validators {
-  final _email = StreamController<String>();
-  final _password = StreamController<String>();
+  final _email = StreamController<String>.broadcast();
+  final _password = StreamController<String>.broadcast();
 
   // Getters for Adding data to stream
   Function(String) get changeEmail => _email.sink.add;
