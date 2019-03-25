@@ -18,6 +18,7 @@
 
 import 'dart:async';
 import 'validators.dart';
+import 'package:rxdart/rxdart.dart';
 
 class Bloc with Validators {
   final _email = StreamController<String>();
@@ -31,6 +32,10 @@ class Bloc with Validators {
   // which data gets retrieved.
   Stream<String> get email => _email.stream.transform(validateEmail);
   Stream<String> get password => _password.stream.transform(validatePassword);
+  //combines email and password results on success using rxdart package
+  //and returns true if both valid
+  Stream<bool> get submitValid =>
+      Observable.combineLatest2(email, password, (email, password) => true);
 
   //clean up variables or objects created by class -- essentially a destructor
   dispose() {
