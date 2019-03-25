@@ -21,8 +21,11 @@ import 'validators.dart';
 import 'package:rxdart/rxdart.dart';
 
 class Bloc with Validators {
-  final _email = StreamController<String>.broadcast();
-  final _password = StreamController<String>.broadcast();
+  // use BehaviorSubect<String> from rxobservables instead of
+  // Stream<String>.broadcast so that we can remember the last
+  // value emitted by each stream for future use
+  final _email = BehaviorSubject<String>();
+  final _password = BehaviorSubject<String>();
 
   // Getters for Adding data to stream
   Function(String) get changeEmail => _email.sink.add;
@@ -37,8 +40,16 @@ class Bloc with Validators {
   Stream<bool> get submitValid =>
       Observable.combineLatest2(email, password, (email, password) => true);
 
+  void submit() {
+    final validEmail = _email.value;
+    final validPassword = _password.value;
+
+    print('Email is $validEmail');
+    print('Password is $validPassword');
+  }
+
   //clean up variables or objects created by class -- essentially a destructor
-  dispose() {
+  void dispose() {
     _email.close();
     _password.close();
   }
